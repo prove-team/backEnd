@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+<h3>상품등록</h3>
+<form action="/prove/add" method="post" enctype="multipart/form-data">
+    <table border="1">
+        <tr><th>공개 여부</th><td><input type="text" name="openOrNot"></td></tr>
+        <tr><th>중요도</th><td><input type="number" name="importance"></td></tr>
+        <tr><th>이미지1</th><td><input type="file" name="img1"></td></tr>
+        <tr><th>이미지2</th><td><input type="file" name="img2"></td></tr>
+        <tr><th>이미지3</th><td><input type="file" name="img3"></td></tr>
+        <tr><th>이미지4</th><td><input type="file" name="img4"></td></tr>
+        <tr><th>짧은 단어</th><td><input type="text" name="shortWord"></td></tr>
+        <tr><th>성공 여부</th><td><input type="text" name="success"></td></tr>
+        <tr><th>태그 (쉼표로 구분)</th><td><input type="text" name="tags"></td></tr>
+        <tr><th>레벨</th><td><input type="text" name="level"></td></tr>
+        <tr><th>등급</th><td><input type="text" name="lank"></td></tr>
+        <tr><th>등록</th><td><input type="submit" value="등록"></td></tr>
+    </table>
+</form>
+</body>
+</html>
