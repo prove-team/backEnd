@@ -31,13 +31,13 @@ public class CommentController {
         Prove prove = proveRepository.findById(prove_id).orElseThrow(() -> new EntityNotFoundException("Prove not found with id: " + prove_id));
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         UserEntity userEntity = userRepository.findByUsername(username);
+        System.out.println(userEntity.getUsername());
         return commentService.makeComment(comment,userEntity,prove);
     }
 
 
-    //TODO Pageable--완료
     @GetMapping("/myComment")
-    public PagedDTO<List<CommentDto>> getMyAllComment(@PageableDefault(page = 0, size = 5) Pageable pageable){
+    public PagedDTO<List<CommentDtoV2>> getMyAllComment(@PageableDefault(page = 0, size = 5) Pageable pageable){
         return commentService.pagedCommentDTO(pageable);
     }
 

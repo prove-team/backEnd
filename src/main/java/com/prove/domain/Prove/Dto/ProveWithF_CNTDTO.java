@@ -11,6 +11,5 @@ import java.util.List;
 @AllArgsConstructor
 public class ProveWithF_CNTDTO {
     List<ProveDtoV2> proveDtoV2;
-
-    int friendCnt;
+    Long friendCnt;
 }

@@ -21,7 +21,7 @@ import java.util.List;
 public class Comment {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private String comment;
 
@@ -31,8 +31,6 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY)
     Prove prove;
 
-    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CommentLike> commentLikes = new ArrayList<>();
 
     //, nullable = false, updatable = false 댓글 DB에서 다 지우고 시작
     @Column(name = "created_at")
@@ -47,5 +45,10 @@ public class Comment {
         this.comment = comment;
         this.user = user;
         this.prove = prove;
+    }
+
+    public void mappingProveAndUser(UserEntity userEntity, Prove prove) {
+        this.user=userEntity;
+        this.prove=prove;
     }
 }

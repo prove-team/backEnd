@@ -14,9 +14,9 @@ public class ImageService {
     private final AwsS3Service awsS3Service;
     public void deleteImage(List<Long> imageIds) {
         for (Long imageId : imageIds) {
-            Optional<Image> image = imageRepository.findById(imageId);
-            awsS3Service.deleteFile(image.get().getImgName());
-            imageRepository.deleteById(image.get().getId());
+            Image image = imageRepository.findById(imageId).orElseThrow(() -> new IllegalArgumentException());
+            awsS3Service.deleteFile(image.getImgName());
+            imageRepository.deleteById(image.getId());
         }
     }
 }

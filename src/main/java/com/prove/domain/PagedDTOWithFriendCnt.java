@@ -9,10 +9,14 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @Builder
-public class PagedDTO<T> {
+public class PagedDTOWithFriendCnt<T> {
     private T content;
     @JsonProperty
     private PageMetaData pageMetaData;
+
+    private int friendCnt;
+
     private String userImg;
 
+    private Boolean check = false;
 }

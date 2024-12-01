@@ -1,468 +1,62 @@
-2024-08-07T19:17:32.779+09:00  INFO 11192 --- [main] com.prove.ProveApplication               : Starting ProveApplication using Java 17.0.7 with PID 11192 (C:\Users\gbc31\study\prove\build\classes\java\main started by gbc31 in C:\Users\gbc31\study\prove)
-2024-08-07T19:17:32.788+09:00  INFO 11192 --- [main] com.prove.ProveApplication               : No active profile set, falling back to 1 default profile: "default"
-2024-08-07T19:17:33.922+09:00  INFO 11192 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-08-07T19:17:34.041+09:00  INFO 11192 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 106 ms. Found 7 JPA repository interfaces.
-2024-08-07T19:17:34.878+09:00  INFO 11192 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2024-08-07T19:17:34.895+09:00  INFO 11192 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-08-07T19:17:34.895+09:00  INFO 11192 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-08-07T19:17:35.015+09:00  INFO 11192 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-08-07T19:17:35.015+09:00  INFO 11192 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2168 ms
-2024-08-07T19:17:35.253+09:00  INFO 11192 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-08-07T19:17:35.373+09:00  INFO 11192 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
-2024-08-07T19:17:35.431+09:00  INFO 11192 --- [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2024-08-07T19:17:35.870+09:00  INFO 11192 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-08-07T19:17:35.916+09:00  INFO 11192 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-07T19:17:36.289+09:00  INFO 11192 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1fc1c7e
-2024-08-07T19:17:36.292+09:00  INFO 11192 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-07T19:17:36.394+09:00  WARN 11192 --- [main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-08-07T19:17:37.967+09:00  INFO 11192 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-08-07T19:17:38.603+09:00  INFO 11192 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-08-07T19:17:39.868+09:00  INFO 11192 --- [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2024-08-07T19:17:40.691+09:00  WARN 11192 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-08-07T19:17:40.951+09:00 DEBUG 11192 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 43 mappings in 'requestMappingHandlerMapping'
-2024-08-07T19:17:41.049+09:00 DEBUG 11192 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2024-08-07T19:17:41.110+09:00  INFO 11192 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3f1870bc, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3993c2be, org.springframework.security.web.context.SecurityContextHolderFilter@25b8748, org.springframework.security.web.header.HeaderWriterFilter@1024b871, org.springframework.web.filter.CorsFilter@55b0c0a6, com.prove.domain.JWT.jwt.CustomLogoutFilter@726986d2, org.springframework.security.web.authentication.logout.LogoutFilter@4c6da38f, com.prove.domain.JWT.jwt.JWTFilter@e0895b3, com.prove.domain.JWT.jwt.LoginFilter@29a920fe, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@60c952ea, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3f891cfe, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7acf609d, org.springframework.security.web.session.SessionManagementFilter@34a55cca, org.springframework.security.web.access.ExceptionTranslationFilter@7fe3ee59, org.springframework.security.web.access.intercept.AuthorizationFilter@7d8f7059]
-2024-08-07T19:17:41.202+09:00 DEBUG 11192 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2024-08-07T19:17:41.248+09:00 DEBUG 11192 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
-2024-08-07T19:17:41.487+09:00  INFO 11192 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
-2024-08-07T19:17:41.497+09:00  INFO 11192 --- [main] com.prove.ProveApplication               : Started ProveApplication in 9.453 seconds (process running for 10.408)
-2024-08-07T19:18:10.918+09:00  INFO 11192 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-08-07T19:18:10.918+09:00  INFO 11192 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-08-07T19:18:10.919+09:00 DEBUG 11192 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
-2024-08-07T19:18:10.919+09:00 DEBUG 11192 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
-2024-08-07T19:18:10.919+09:00 DEBUG 11192 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
-2024-08-07T19:18:10.923+09:00 DEBUG 11192 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@489541f8
-2024-08-07T19:18:10.924+09:00 DEBUG 11192 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@32252740
-2024-08-07T19:18:10.924+09:00 DEBUG 11192 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-2024-08-07T19:18:10.924+09:00  INFO 11192 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
-2024-08-07T19:18:10.953+09:00 DEBUG 11192 --- [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /login
-2024-08-07T19:18:11.309+09:00 DEBUG 11192 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
-    select
-        ue1_0.id,
-        ue1_0.lank,
-        ue1_0.level,
-        ue1_0.main_image,
-        ue1_0.password,
-        ue1_0.role,
-        ue1_0.username 
-    from
-        user_entity ue1_0 
-    where
-        ue1_0.username=?
-2024-08-07T19:18:11.494+09:00 DEBUG 11192 --- [http-nio-8080-exec-1] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
-2024-08-07T19:18:11.691+09:00 DEBUG 11192 --- [http-nio-8080-exec-1] org.hibernate.SQL                        : 
-    insert 
-    into
-        refresh_entity
-        (expiration, refresh, username) 
-    values
-        (?, ?, ?)
-2024-08-07T19:18:35.377+09:00 DEBUG 11192 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /myComment
-2024-08-07T19:18:35.477+09:00 DEBUG 11192 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /myComment
-2024-08-07T19:18:35.484+09:00 DEBUG 11192 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/myComment", parameters={}
-2024-08-07T19:18:35.491+09:00 DEBUG 11192 --- [http-nio-8080-exec-3] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2024-08-07T19:18:35.523+09:00 DEBUG 11192 --- [http-nio-8080-exec-3] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
-2024-08-07T19:18:35.537+09:00 DEBUG 11192 --- [http-nio-8080-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource myComment.]
-2024-08-07T19:18:35.539+09:00 DEBUG 11192 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
-2024-08-07T19:18:35.564+09:00 DEBUG 11192 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /error
-2024-08-07T19:18:35.569+09:00 DEBUG 11192 --- [http-nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2024-08-07T19:18:35.572+09:00 DEBUG 11192 --- [http-nio-8080-exec-3] o.s.s.w.a.Http403ForbiddenEntryPoint     : Pre-authenticated entry point called. Rejecting access
-2024-08-07T19:18:42.216+09:00 DEBUG 11192 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /myComment?page=0&size=5
-2024-08-07T19:18:42.222+09:00 DEBUG 11192 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /myComment?page=0&size=5
-2024-08-07T19:18:42.223+09:00 DEBUG 11192 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/myComment?page=0&size=5", parameters={masked}
-2024-08-07T19:18:42.224+09:00 DEBUG 11192 --- [http-nio-8080-exec-4] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2024-08-07T19:18:42.228+09:00 DEBUG 11192 --- [http-nio-8080-exec-4] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
-2024-08-07T19:18:42.229+09:00 DEBUG 11192 --- [http-nio-8080-exec-4] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource myComment.]
-2024-08-07T19:18:42.230+09:00 DEBUG 11192 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
-2024-08-07T19:18:42.231+09:00 DEBUG 11192 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /error?page=0&size=5
-2024-08-07T19:18:42.232+09:00 DEBUG 11192 --- [http-nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2024-08-07T19:18:42.233+09:00 DEBUG 11192 --- [http-nio-8080-exec-4] o.s.s.w.a.Http403ForbiddenEntryPoint     : Pre-authenticated entry point called. Rejecting access
-2024-08-07T19:18:51.196+09:00 DEBUG 11192 --- [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /api/myComment?page=0&size=5
-2024-08-07T19:18:51.200+09:00 DEBUG 11192 --- [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /api/myComment?page=0&size=5
-2024-08-07T19:18:51.201+09:00 DEBUG 11192 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/myComment?page=0&size=5", parameters={masked}
-2024-08-07T19:18:51.202+09:00 DEBUG 11192 --- [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.prove.domain.comment.CommentController#getMyAllComment(Pageable)
-2024-08-07T19:18:51.332+09:00 DEBUG 11192 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
-    select
-        c1_0.id,
-        c1_0.comment,
-        c1_0.created_at,
-        c1_0.prove_id,
-        c1_0.user_id 
-    from
-        comment c1_0 
-    join
-        user_entity u1_0 
-            on u1_0.id=c1_0.user_id 
-    where
-        u1_0.username=? 
-    order by
-        c1_0.created_at desc 
-    limit
-        ?, ?
-2024-08-07T19:18:51.393+09:00 DEBUG 11192 --- [http-nio-8080-exec-5] org.hibernate.SQL                        : 
-    select
-        cl1_0.comment_id,
-        cl1_0.id,
-        cl1_0.user_id 
-    from
-        comment_like cl1_0 
-    where
-        cl1_0.comment_id=?
-2024-08-07T19:18:51.492+09:00 DEBUG 11192 --- [http-nio-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/cbor]
-2024-08-07T19:18:51.499+09:00 DEBUG 11192 --- [http-nio-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Writing [PagedDTO(content=[com.prove.domain.comment.CommentDto@42351492], pageMetaData=PageMetaData(size=5, t (truncated)...]
-2024-08-07T19:18:51.522+09:00 DEBUG 11192 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2024-08-07T19:21:45.633+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/allProves/v3/STUDY?page=0&size=5
-2024-08-07T19:21:45.664+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/allProves/v3/STUDY?page=0&size=5
-2024-08-07T19:21:45.666+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/allProves/v3/STUDY?page=0&size=5", parameters={masked}
-2024-08-07T19:21:45.667+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.prove.domain.Prove.ProveController#getAllProvesv2withPageable(Pageable, String)
-2024-08-07T19:21:45.817+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] org.hibernate.SQL                        : 
-    select
-        p1_0.id,
-        p1_0.color,
-        p1_0.end_time,
-        p1_0.importance,
-        p1_0.open_or_not,
-        p1_0.short_word,
-        p1_0.start_time,
-        p1_0.success,
-        p1_0.tags,
-        p1_0.user_id 
-    from
-        prove p1_0 
-    where
-        p1_0.tags in (?) 
-    limit
-        ?, ?
-2024-08-07T19:21:45.866+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] org.hibernate.SQL                        : 
-    select
-        count(p1_0.id) 
-    from
-        prove p1_0 
-    where
-        p1_0.tags in (?)
-2024-08-07T19:21:45.965+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] org.hibernate.SQL                        : 
-    select
-        l1_0.prove_id,
-        l1_0.id,
-        l1_0.user_id 
-    from
-        likes l1_0 
-    where
-        l1_0.prove_id in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-2024-08-07T19:21:46.014+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] org.hibernate.SQL                        : 
-    select
-        ue1_0.id,
-        ue1_0.lank,
-        ue1_0.level,
-        ue1_0.main_image,
-        ue1_0.password,
-        ue1_0.role,
-        ue1_0.username 
-    from
-        user_entity ue1_0 
-    where
-        ue1_0.id=?
-2024-08-07T19:21:46.039+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] org.hibernate.SQL                        : 
-    select
-        cl1_0.prove_id,
-        cl1_0.id,
-        cl1_0.comment,
-        cl1_0.created_at,
-        cl1_0.user_id 
-    from
-        comment cl1_0 
-    where
-        cl1_0.prove_id in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-2024-08-07T19:21:46.064+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] org.hibernate.SQL                        : 
-    select
-        cl1_0.comment_id,
-        cl1_0.id,
-        cl1_0.user_id 
-    from
-        comment_like cl1_0 
-    where
-        cl1_0.comment_id=?
-2024-08-07T19:21:46.107+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/cbor]
-2024-08-07T19:21:46.108+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] m.m.a.RequestResponseBodyMethodProcessor : Writing [PagedDTO(content=[com.prove.domain.Prove.Dto.ProveDtoV2@21bf5308, com.prove.domain.Prove.Dto.ProveDt (truncated)...]
-2024-08-07T19:21:46.155+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] org.hibernate.SQL                        : 
-    select
-        il1_0.prove_id,
-        il1_0.id,
-        il1_0.img_name,
-        il1_0.img_url 
-    from
-        image il1_0 
-    where
-        il1_0.prove_id=?
-2024-08-07T19:21:46.176+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] org.hibernate.SQL                        : 
-    select
-        il1_0.prove_id,
-        il1_0.id,
-        il1_0.img_name,
-        il1_0.img_url 
-    from
-        image il1_0 
-    where
-        il1_0.prove_id=?
-2024-08-07T19:21:46.187+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] org.hibernate.SQL                        : 
-    select
-        il1_0.prove_id,
-        il1_0.id,
-        il1_0.img_name,
-        il1_0.img_url 
-    from
-        image il1_0 
-    where
-        il1_0.prove_id=?
-2024-08-07T19:21:46.200+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] org.hibernate.SQL                        : 
-    select
-        il1_0.prove_id,
-        il1_0.id,
-        il1_0.img_name,
-        il1_0.img_url 
-    from
-        image il1_0 
-    where
-        il1_0.prove_id=?
-2024-08-07T19:21:46.218+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] org.hibernate.SQL                        : 
-    select
-        il1_0.prove_id,
-        il1_0.id,
-        il1_0.img_name,
-        il1_0.img_url 
-    from
-        image il1_0 
-    where
-        il1_0.prove_id=?
-2024-08-07T19:21:46.230+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2024-08-07T19:25:21.772+09:00 DEBUG 11192 --- [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /api/prove/godong
-2024-08-07T19:25:21.850+09:00 DEBUG 11192 --- [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /api/prove/godong
-2024-08-07T19:25:21.855+09:00 DEBUG 11192 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/prove/godong", parameters={}
-2024-08-07T19:25:21.857+09:00 DEBUG 11192 --- [http-nio-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.prove.domain.Prove.ProveController#getPCNDTO(String)
-2024-08-07T19:25:22.081+09:00 DEBUG 11192 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : 
-    select
-        ue1_0.id,
-        ue1_0.lank,
-        ue1_0.level,
-        ue1_0.main_image,
-        ue1_0.password,
-        ue1_0.role,
-        ue1_0.username 
-    from
-        user_entity ue1_0 
-    where
-        ue1_0.username=?
-2024-08-07T19:25:22.128+09:00 DEBUG 11192 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : 
-    select
-        p1_0.user_id,
-        p1_0.id,
-        p1_0.color,
-        p1_0.end_time,
-        p1_0.importance,
-        p1_0.open_or_not,
-        p1_0.short_word,
-        p1_0.start_time,
-        p1_0.success,
-        p1_0.tags 
-    from
-        prove p1_0 
-    where
-        p1_0.user_id=?
-2024-08-07T19:25:22.154+09:00 DEBUG 11192 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : 
-    select
-        l1_0.prove_id,
-        l1_0.id,
-        l1_0.user_id 
-    from
-        likes l1_0 
-    where
-        l1_0.prove_id in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-2024-08-07T19:25:22.179+09:00 DEBUG 11192 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : 
-    select
-        cl1_0.prove_id,
-        cl1_0.id,
-        cl1_0.comment,
-        cl1_0.created_at,
-        cl1_0.user_id 
-    from
-        comment cl1_0 
-    where
-        cl1_0.prove_id in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-2024-08-07T19:25:22.197+09:00 DEBUG 11192 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : 
-    select
-        cl1_0.comment_id,
-        cl1_0.id,
-        cl1_0.user_id 
-    from
-        comment_like cl1_0 
-    where
-        cl1_0.comment_id=?
-2024-08-07T19:25:22.210+09:00 DEBUG 11192 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : 
-    select
-        f1_0.user_id,
-        f1_1.id,
-        f1_1.lank,
-        f1_1.level,
-        f1_1.main_image,
-        f1_1.password,
-        f1_1.role,
-        f1_1.username 
-    from
-        user_friends f1_0 
-    join
-        user_entity f1_1 
-            on f1_1.id=f1_0.friend_id 
-    where
-        f1_0.user_id=?
-2024-08-07T19:25:22.339+09:00 DEBUG 11192 --- [http-nio-8080-exec-10] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/cbor]
-2024-08-07T19:25:22.343+09:00 DEBUG 11192 --- [http-nio-8080-exec-10] m.m.a.RequestResponseBodyMethodProcessor : Writing [com.prove.domain.Prove.Dto.ProveWithF_CNTDTO@1e889a71]
-2024-08-07T19:25:22.348+09:00 DEBUG 11192 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : 
-    select
-        il1_0.prove_id,
-        il1_0.id,
-        il1_0.img_name,
-        il1_0.img_url 
-    from
-        image il1_0 
-    where
-        il1_0.prove_id=?
-2024-08-07T19:25:22.375+09:00 DEBUG 11192 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : 
-    select
-        il1_0.prove_id,
-        il1_0.id,
-        il1_0.img_name,
-        il1_0.img_url 
-    from
-        image il1_0 
-    where
-        il1_0.prove_id=?
-2024-08-07T19:25:22.387+09:00 DEBUG 11192 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : 
-    select
-        il1_0.prove_id,
-        il1_0.id,
-        il1_0.img_name,
-        il1_0.img_url 
-    from
-        image il1_0 
-    where
-        il1_0.prove_id=?
-2024-08-07T19:25:22.398+09:00 DEBUG 11192 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : 
-    select
-        il1_0.prove_id,
-        il1_0.id,
-        il1_0.img_name,
-        il1_0.img_url 
-    from
-        image il1_0 
-    where
-        il1_0.prove_id=?
-2024-08-07T19:25:22.412+09:00 DEBUG 11192 --- [http-nio-8080-exec-10] org.hibernate.SQL                        : 
-    select
-        il1_0.prove_id,
-        il1_0.id,
-        il1_0.img_name,
-        il1_0.img_url 
-    from
-        image il1_0 
-    where
-        il1_0.prove_id=?
-2024-08-07T19:25:22.427+09:00 DEBUG 11192 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2024-08-07T19:36:38.288+09:00 DEBUG 11192 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /api/get/myfriends
-2024-08-07T19:36:38.367+09:00 DEBUG 11192 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /api/get/myfriends
-2024-08-07T19:36:38.374+09:00 DEBUG 11192 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/get/myfriends", parameters={}
-2024-08-07T19:36:38.375+09:00 DEBUG 11192 --- [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.prove.domain.User.UserController#getAllFriends()
-2024-08-07T19:36:38.557+09:00 DEBUG 11192 --- [http-nio-8080-exec-4] org.hibernate.SQL                        : 
-    select
-        ue1_0.id,
-        ue1_0.lank,
-        ue1_0.level,
-        ue1_0.main_image,
-        ue1_0.password,
-        ue1_0.role,
-        ue1_0.username 
-    from
-        user_entity ue1_0 
-    where
-        ue1_0.username=?
-2024-08-07T19:36:38.602+09:00 DEBUG 11192 --- [http-nio-8080-exec-4] org.hibernate.SQL                        : 
-    select
-        f1_0.user_id,
-        f1_1.id,
-        f1_1.lank,
-        f1_1.level,
-        f1_1.main_image,
-        f1_1.password,
-        f1_1.role,
-        f1_1.username 
-    from
-        user_friends f1_0 
-    join
-        user_entity f1_1 
-            on f1_1.id=f1_0.friend_id 
-    where
-        f1_0.user_id=?
-2024-08-07T19:36:38.670+09:00 DEBUG 11192 --- [http-nio-8080-exec-4] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/cbor]
-2024-08-07T19:36:38.671+09:00 DEBUG 11192 --- [http-nio-8080-exec-4] m.m.a.RequestResponseBodyMethodProcessor : Writing [[com.prove.domain.User.Dto.UserDto@49df8ad9, com.prove.domain.User.Dto.UserDto@161ea415, com.prove.d (truncated)...]
-2024-08-07T19:36:38.688+09:00 DEBUG 11192 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2024-08-07T19:41:14.668+09:00 DEBUG 11192 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /api/friends/junsu
-2024-08-07T19:41:14.696+09:00 DEBUG 11192 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /api/friends/junsu
-2024-08-07T19:41:14.698+09:00 DEBUG 11192 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/friends/junsu", parameters={}
-2024-08-07T19:41:14.699+09:00 DEBUG 11192 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.prove.domain.User.UserController#getAllFriendsWithUsername(String)
-2024-08-07T19:41:14.774+09:00 DEBUG 11192 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
-    select
-        ue1_0.id,
-        ue1_0.lank,
-        ue1_0.level,
-        ue1_0.main_image,
-        ue1_0.password,
-        ue1_0.role,
-        ue1_0.username 
-    from
-        user_entity ue1_0 
-    where
-        ue1_0.username=?
-2024-08-07T19:41:14.797+09:00 DEBUG 11192 --- [http-nio-8080-exec-7] org.hibernate.SQL                        : 
-    select
-        f1_0.user_id,
-        f1_1.id,
-        f1_1.lank,
-        f1_1.level,
-        f1_1.main_image,
-        f1_1.password,
-        f1_1.role,
-        f1_1.username 
-    from
-        user_friends f1_0 
-    join
-        user_entity f1_1 
-            on f1_1.id=f1_0.friend_id 
-    where
-        f1_0.user_id=?
-2024-08-07T19:41:14.839+09:00 DEBUG 11192 --- [http-nio-8080-exec-7] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/cbor]
-2024-08-07T19:41:14.840+09:00 DEBUG 11192 --- [http-nio-8080-exec-7] m.m.a.RequestResponseBodyMethodProcessor : Writing [[com.prove.domain.User.Dto.UserDto@3f5426ec]]
-2024-08-07T19:41:14.845+09:00 DEBUG 11192 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2024-08-07T19:42:03.693+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /api/search/godong
-2024-08-07T19:42:03.700+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /api/search/godong
-2024-08-07T19:42:03.700+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/search/godong", parameters={}
-2024-08-07T19:42:03.701+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.prove.domain.User.UserController#searchWithUserName(String, Pageable)
-2024-08-07T19:42:04.106+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] org.hibernate.SQL                        : 
-    select
-        ue1_0.id,
-        ue1_0.lank,
-        ue1_0.level,
-        ue1_0.main_image,
-        ue1_0.password,
-        ue1_0.role,
-        ue1_0.username 
-    from
-        user_entity ue1_0 
-    where
-        ue1_0.username like concat('%', ?, '%') escape '' 
-    limit
-        ?, ?
-2024-08-07T19:42:04.287+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/cbor]
-2024-08-07T19:42:04.288+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] m.m.a.RequestResponseBodyMethodProcessor : Writing [PagedDTO(content=[com.prove.domain.User.Dto.UserDto@32f0e657], pageMetaData=PageMetaData(size=5, tot (truncated)...]
-2024-08-07T19:42:04.307+09:00 DEBUG 11192 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2024-08-07T20:37:25.234+09:00  INFO 11192 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-08-07T20:37:25.448+09:00  INFO 11192 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-07T20:37:25.519+09:00  INFO 11192 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-10-09T00:09:39.664+09:00  INFO 13764 --- [lettuce-nioEventLoop-4-1] i.lettuce.core.protocol.CommandHandler   : null Unexpected exception during request: java.net.SocketException: Connection reset
+
+java.net.SocketException: Connection reset
+	at java.base/sun.nio.ch.SocketChannelImpl.throwConnectionReset(SocketChannelImpl.java:394) ~[na:na]
+	at java.base/sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:426) ~[na:na]
+	at io.netty.buffer.PooledByteBuf.setBytes(PooledByteBuf.java:255) ~[netty-buffer-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1132) ~[netty-buffer-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:357) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:151) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.107.Final.jar:4.1.107.Final]
+	at java.base/java.lang.Thread.run(Thread.java:833) ~[na:na]
+
+2024-10-09T00:09:39.943+09:00  INFO 13764 --- [lettuce-eventExecutorLoop-1-1] i.l.core.protocol.ConnectionWatchdog     : Reconnecting, last destination was /3.39.226.33:6379
+2024-10-09T00:09:39.974+09:00  WARN 13764 --- [lettuce-eventExecutorLoop-1-1] i.l.core.protocol.ConnectionWatchdog     : Cannot reconnect to [3.39.226.33/<unresolved>:6379]: Network is unreachable: no further information: /3.39.226.33:6379
+
+io.netty.channel.AbstractChannel$AnnotatedSocketException: Network is unreachable: no further information: /3.39.226.33:6379
+Caused by: java.net.SocketException: Network is unreachable: no further information
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672) ~[na:na]
+	at java.base/sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:946) ~[na:na]
+	at io.netty.channel.socket.nio.NioSocketChannel.doFinishConnect(NioSocketChannel.java:337) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:335) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:776) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.107.Final.jar:4.1.107.Final]
+	at java.base/java.lang.Thread.run(Thread.java:833) ~[na:na]
+
+2024-10-09T10:02:33.516+09:00  INFO 13764 --- [lettuce-eventExecutorLoop-1-10] i.l.core.protocol.ConnectionWatchdog     : Reconnecting, last destination was 3.39.226.33/<unresolved>:6379
+2024-10-09T10:02:33.521+09:00  WARN 13764 --- [lettuce-nioEventLoop-4-11] i.l.core.protocol.ConnectionWatchdog     : Cannot reconnect to [3.39.226.33/<unresolved>:6379]: Network is unreachable: no further information: /3.39.226.33:6379
+
+io.netty.channel.AbstractChannel$AnnotatedSocketException: Network is unreachable: no further information: /3.39.226.33:6379
+Caused by: java.net.SocketException: Network is unreachable: no further information
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672) ~[na:na]
+	at java.base/sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:946) ~[na:na]
+	at io.netty.channel.socket.nio.NioSocketChannel.doFinishConnect(NioSocketChannel.java:337) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:335) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:776) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562) ~[netty-transport-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.107.Final.jar:4.1.107.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.107.Final.jar:4.1.107.Final]
+	at java.base/java.lang.Thread.run(Thread.java:833) ~[na:na]
+
+2024-10-09T10:02:35.328+09:00  WARN 13764 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=12h53m23s40ms129µs100ns).
+2024-10-09T10:02:41.583+09:00  INFO 13764 --- [lettuce-eventExecutorLoop-1-10] i.l.core.protocol.ConnectionWatchdog     : Reconnecting, last destination was 3.39.226.33/<unresolved>:6379
+2024-10-09T10:02:42.025+09:00  INFO 13764 --- [lettuce-nioEventLoop-4-2] i.l.core.protocol.ReconnectionHandler    : Reconnected to 3.39.226.33/<unresolved>:6379
+2024-10-09T10:05:45.219+09:00  INFO 13764 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-09T10:05:45.322+09:00  INFO 13764 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-10-09T10:05:45.363+09:00  INFO 13764 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

@@ -1,26 +1,35 @@
 package com.prove.domain.Prove;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.prove.domain.AwsS3.AwsS3Service;
 import com.prove.domain.Like.Like;
 import com.prove.domain.Like.LikeRepository;
 import com.prove.domain.PageMetaData;
 import com.prove.domain.PagedDTO;
+import com.prove.domain.PagedDTOWithFriendCnt;
 import com.prove.domain.Prove.Dto.ProveDto;
 import com.prove.domain.Prove.Dto.ProveDtoV2;
-import com.prove.domain.Prove.Dto.ProveWithF_CNTDTO;
 import com.prove.domain.Tags;
 import com.prove.domain.User.Dto.UserDto;
+import com.prove.domain.User.FriendShip;
+import com.prove.domain.User.FriendShipRepository;
 import com.prove.domain.User.UserEntity;
 import com.prove.domain.User.UserRepository;
 import com.prove.domain.comment.Comment;
 import com.prove.domain.comment.CommentDto;
 import com.prove.domain.comment.CommentRepository;
+import com.prove.domain.comment_like.CommentLikeRepository;
 import com.prove.domain.image.Image;
 import com.prove.domain.image.ImageDto;
 import com.prove.domain.image.ImageRepository;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,6 +39,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.*;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,6 +52,9 @@ public class ProveService {
     private final ImageRepository imageRepository;
     private final LikeRepository likeRepository;
     private final AwsS3Service awsS3Service;
+    private final CommentLikeRepository commentLikeRepository;
+    private final FriendShipRepository friendShipRepository;
+    private final CacheManager cacheManager;
 
     private void makeImageList(List<Image> imageList, List<ImageDto> imageDtoList) {
         //여기 Image에서는 현재 Prove 매핑이 되어있지 않음
@@ -67,9 +80,14 @@ public class ProveService {
             }
         }
 
+        //imageList만들고 image와 Prove 매핑하고 따로 Image저장
         makeImageList(imageList,imageDtoList);
+        for (Image image : imageList) {
+            image.setProve(prove);
+            imageRepository.save(image);
+        }
 
-        prove.completeProve(imageList,proveDto);
+        prove.completeProve(proveDto);
 
         String username = getUsername();
         UserEntity user = userRepository.findByUsername(username);
@@ -81,8 +99,6 @@ public class ProveService {
 
     public void create(ProveDto proveDto) {
         String username = getUsername();
-        System.out.println(proveDto.getStartTime());
-        System.out.println(proveDto.getEndTime());
         UserEntity user = userRepository.findByUsername(username);
         Prove prove = Prove.builder()
                 .openOrNot(proveDto.getOpenOrNot())
@@ -119,8 +135,12 @@ public class ProveService {
         }
 
         makeImageList(imageList,imageDtoList);
+        for (Image image : imageList) {
+            image.setProve(prove);
+            imageRepository.save(image);
+        }
 
-        prove.editProve(proveDto,imageList);
+        prove.editProve(proveDto);
 
         proveRepository.save(prove);
     }
@@ -141,11 +161,15 @@ public class ProveService {
                     imageRepository.delete(img);
                 }
 
-                // Comment 삭제
-                List<Comment> commentList = prove.getCommentList();
-                for (Comment comment : commentList) {
-                    commentRepository.delete(comment);
+                // Prove와 관련된 모든 Comment를 가져오기
+                List<Comment> comments = commentRepository.findByProve(prove); // Prove를 통해 Comment를 가져옴
+
+                // 각 Comment에 대해 CommentLike 삭제
+                for (Comment comment : comments) {
+                    commentLikeRepository.deleteByCommentId(comment.getId());
                 }
+                // Comment 삭제
+                commentRepository.deleteByProveId(prove.getId());
 
                 // Prove 삭제
                 proveRepository.deleteById(prove.getId());
@@ -156,31 +180,21 @@ public class ProveService {
             throw new IllegalArgumentException("잘못된 Prove 값입니다.");
         }
     }
-    public List<ProveDtoV2> getFriendProve() {
-        String username = getUsername();
-        // 친구들의 Prove를 저장할 리스트
-        List<Prove> friendProves = new ArrayList<>();
-        UserEntity user = userRepository.findByUsername(username);
-        List<UserEntity> friends = user.getFriends();
-        if (user != null && friends != null) {
-            for (UserEntity friend : friends) {
-                friendProves.addAll(friend.getProves());
-            }
-        }
-        sortProvesByEndTime(friendProves);
-        return makeProveDtos(friendProves);
-    }
 
-    public PagedDTO<List<ProveDtoV2>> getAllMyProve(Pageable pageable) {
+    public PagedDTOWithFriendCnt<List<ProveDtoV2>> getAllMyProve(Pageable pageable) {
         String username = getUsername();
+        UserEntity userEntity = userRepository.findByUsername(username);
         Page<Prove> provesPage = proveRepository.findByUserName(username, pageable);
         PageMetaData pageMetaData = new PageMetaData(provesPage.getSize(),
                 provesPage.getTotalElements(), provesPage.getTotalPages(), provesPage.getNumber());
         List<Prove> content = provesPage.getContent();
         List<ProveDtoV2> proveDtoV2s = makeProveDtos(content);
-        return PagedDTO.<List<ProveDtoV2>>builder()
+        List<FriendShip> friendShips = friendShipRepository.findByUser(userEntity);
+        return PagedDTOWithFriendCnt.<List<ProveDtoV2>>builder()
                 .content(proveDtoV2s)
                 .pageMetaData(pageMetaData)
+                .userImg(userEntity.getMainImage())
+                .friendCnt(friendShips.size())
                 .build();
     }
 
@@ -190,20 +204,25 @@ public class ProveService {
         return proves.stream()
                 .map(prove -> {
                     UserEntity userEntity = prove.getUser();
-                    Long likeCount = prove.getLikeCount();
-
+                    Long likeCount = likeRepository.countLikesByProveId(prove.getId());
                     // UserDto 생성
                     UserDto userDto = UserDto.builder()
                             .username(userEntity.getUsername())
                             .role(userEntity.getRole())
                             .build();
 
-                    List<CommentDto> commentDtos = prove.getCommentList().stream()
+                    //proves를 통해서 comment 가져오기
+                    List<Comment> comments = commentRepository.findByProveId(prove.getId());
+                    System.out.println(comments);
+                    // 댓글을 DTO로 변환
+                    List<CommentDto> commentDtos = comments.stream()
                             .map(comment -> CommentDto.builder()
                                     .comment_id(comment.getId())
                                     .prove_id(prove.getId())
                                     .comment(comment.getComment())
-                                    .like_count((long) comment.getCommentLikes().size())
+                                    .like_count(commentLikeRepository.countLikesByCommentId(comment.getId()))
+                                    .user_main_Img(comment.getUser().getMainImage())
+                                    .username(comment.getUser().getUsername())
                                     .build())
                             .collect(Collectors.toList());
 
@@ -221,7 +240,7 @@ public class ProveService {
                             .openOrNot(prove.getOpenOrNot())
                             .user(userDto)
                             .like(likeCount)
-                            .imgList(prove.getImgList())
+                            .imgList(imageRepository.findAllByProve(prove))
                             .color(prove.getColor())
                             .build();
 
@@ -237,7 +256,8 @@ public class ProveService {
 
         LocalDateTime startDateTime = date.atStartOfDay(zoneId).toLocalDateTime();
         LocalDateTime endDateTime = date.plusDays(1).atStartOfDay(zoneId).toLocalDateTime().minusNanos(1);
-        List<Prove> proves = proveRepository.findAllByDateWithImagesAndUser(startDateTime, endDateTime);
+
+        List<Prove> proves = proveRepository.findAllByDateWithImagesAndUser(getUsername(), startDateTime, endDateTime);
         return makeProveDtos(proves);
     }
 
@@ -282,19 +302,22 @@ public class ProveService {
     }
 
 
+    //TODO 여기도 좋아요 이미 눌렀으면, 좋아요 감소하는거 해줘야함
     public void likePost(Long postId) {
         Prove prove = proveRepository.findById(postId).orElseThrow(() -> new RuntimeException("Post not found"));
         String username = getUsername();
         UserEntity userEntity = userRepository.findByUsername(username);
 
         if (likeRepository.existsByProveAndUser(prove, userEntity)) {
-            throw new RuntimeException("User has already liked this post");
+            //1번 like Repository에서 삭제
+            likeRepository.deleteByProveWithUser(prove,userEntity);
+            //throw new RuntimeException("User has already liked this post");
+        }else {
+            Like like = new Like();
+            like.setProve(prove);
+            like.setUser(userEntity);
+            likeRepository.save(like);
         }
-
-        Like like = new Like();
-        like.setProve(prove);
-        like.setUser(userEntity);
-        likeRepository.save(like);
     }
 
     public boolean hasUserLikedPost(Long proveId) {
@@ -404,17 +427,31 @@ public class ProveService {
 
     public PagedDTO<List<ProveDtoV2>> getAllProveWithStringWithPagable(Pageable pageable, String tag) {
         List<Tags> tags = new ArrayList<>();
-        String[] tagArray = tag.split("\\."); // '.'으로 파싱
-
-        for (String t : tagArray) {
-            Tags tagEnum = Tags.valueOf(t); // 문자열을 Tags로 변환
-            System.out.println(tagEnum);
-            tags.add(tagEnum); // 리스트에 추가
+        //1.로그인 유무 확인
+        String username = getUsername();
+        if(!username.equals("anonymousUser")){
+            System.out.println("hi");
+            //로그인이 되어있는 상태
+            UserEntity userEntity = userRepository.findByUsername(username);
+            tags = userEntity.getTags();
+        }else {
+            String[] tagArray = tag.split("\\."); // '.'으로 파싱
+            for (String t : tagArray) {
+                Tags tagEnum = Tags.valueOf(t); // 문자열을 Tags로 변환
+                System.out.println(tagEnum);
+                tags.add(tagEnum); // 리스트에 추가
+            }
         }
 
-        System.out.println("Hello");
-        //prove가져옴
-        Page<Prove> proves = proveRepository.findAByTagAndPage(tags,pageable);
+        Page<Prove> proves;
+
+        if (!tags.contains(Tags.NONE)) {
+            // tag가 있을 경우
+            proves = proveRepository.findAByTagAndPage(tags, pageable);
+        } else {
+            // tag가 없을 경우
+            proves = proveRepository.findAllByEndTime(pageable);
+        }
 
         PageMetaData pageMetaData = new PageMetaData(proves.getSize(),
                 proves.getTotalElements(), proves.getTotalPages(), proves.getNumber());
@@ -423,7 +460,6 @@ public class ProveService {
         System.out.println(proveList);
         //DTO변환
         List<ProveDtoV2> proveDtoV2s = makeProveDtos(proveList);
-        sortProveDtoByEndTime(proveDtoV2s);
 
         return PagedDTO.<List<ProveDtoV2>>builder()
                 .content(proveDtoV2s)
@@ -441,15 +477,108 @@ public class ProveService {
         });
     }
 
-    public ProveWithF_CNTDTO getProveWithF_CNTDTO(String username) {
-        ProveWithF_CNTDTO proveWithFCntdto = new ProveWithF_CNTDTO();
-
+    //pageable사용
+    public PagedDTOWithFriendCnt<List<ProveDtoV2>> getProveWithF_CNTDTO(String username, Pageable pageable) {
         UserEntity userEntity = userRepository.findByUsername(username);
-        List <Prove> proves = userEntity.getProves();
-        List<ProveDtoV2> proveDtoV2s = makeProveDtos(proves);
 
-        proveWithFCntdto.setProveDtoV2(proveDtoV2s);
-        proveWithFCntdto.setFriendCnt(userEntity.getFriends().size());
-        return proveWithFCntdto;
+        Page<Prove> proves = proveRepository.findAllByUserId(userEntity.getId(),pageable);
+        List<Prove> proveList = proves.getContent();
+        System.out.println(proveList);
+        List<ProveDtoV2>proveDtoV2s = makeProveDtos(proveList);
+
+        PageMetaData pageMetaData = new PageMetaData(proves.getSize(),
+                proves.getTotalElements(), proves.getTotalPages(), proves.getNumber());
+
+        List<FriendShip> friendShips = friendShipRepository.findByUser(userEntity);
+        Boolean check = false;
+        if(username == getUsername()){
+            check = true;
+        }
+        return PagedDTOWithFriendCnt.<List<ProveDtoV2>>builder()
+                .content(proveDtoV2s)
+                .pageMetaData(pageMetaData)
+                .friendCnt(friendShips.size())
+                .userImg(userEntity.getMainImage())
+                .check(check)
+                .build();
     }
+
+    public PagedDTO<List<ProveDtoV2>> getFriendProves(Pageable pageable) {
+        String username = getUsername();
+        UserEntity userEntity = userRepository.findByUsername(username);
+
+        // fetch join을 사용하여 친구 목록을 가져옴
+        List<FriendShip> friendShips = friendShipRepository.findByUserWithFriends(userEntity);
+        List<Long> friendIds = new ArrayList<>();
+
+        for (FriendShip friendShip : friendShips) {
+            friendIds.add(friendShip.getFriend().getId());
+        }
+
+        // 친구 ID를 사용하여 Prove 조회
+        Page<Prove> proves = proveRepository.findByUserIdIn(friendIds, pageable);
+        PageMetaData pageMetaData = new PageMetaData(proves.getSize(),
+                proves.getTotalElements(), proves.getTotalPages(), proves.getNumber());
+
+        List<Prove> proveList = proves.getContent();
+        List<ProveDtoV2> proveDtoV2s = makeProveDtos(proveList);
+
+        return PagedDTO.<List<ProveDtoV2>>builder()
+                .content(proveDtoV2s)
+                .pageMetaData(pageMetaData)
+                .build();
+    }
+
+    public List<ProveDtoV2> getProvesWithCache() {
+
+        // "STUDY" 캐시 사용
+        Cache cache = cacheManager.getCache("STUDY");
+
+        // 캐시에서 JSON 문자열을 가져오기
+        String cachedProvesJson = cache.get("top100Proves", String.class);
+        System.out.println("캐시에서 데이터를 반환합니다.");
+
+        // ObjectMapper를 사용하여 JSON 문자열을 ProveDtoV2 리스트로 변환
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            // ProveDtoV2 리스트로 변환
+            List<ProveDtoV2> proveDtoList = objectMapper.readValue(cachedProvesJson, new TypeReference<List<ProveDtoV2>>() {});
+
+            // 변환된 리스트 반환
+            return proveDtoList;
+
+        } catch (JsonMappingException e) {
+            throw new RuntimeException("JSON 매핑 오류", e);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("JSON 처리 오류", e);
+        }
+    }
+
+
+    // 캐시의 상태를 출력하는 메서드
+    private void printCacheStats() {
+        for (String cacheName : cacheManager.getCacheNames()) {
+            Cache cache = cacheManager.getCache(cacheName);
+            if (cache != null) {
+                System.out.println("캐시 이름: " + cacheName);
+                // 캐시의 크기와 내용을 확인하는 로직 추가
+                System.out.println("캐시 크기: " + getCacheSize(cache));
+                System.out.println("캐시 내용: " + getCacheContent(cache));
+            }
+        }
+    }
+
+    // 캐시 크기를 확인하는 메서드
+    private int getCacheSize(Cache cache) {
+        // Redis 캐시의 경우에는 이 방법이 작동하지 않을 수 있으므로 주의
+        // Local Cache의 경우에 대한 처리 로직
+        return ((ConcurrentHashMap) cache.getNativeCache()).size();
+    }
+
+    // 캐시 내용을 출력하는 메서드
+    private String getCacheContent(Cache cache) {
+        // Redis 캐시의 경우에 대한 처리 로직을 추가해야 함
+        return cache.getNativeCache().toString();  // 예시, 구현에 따라 조정 필요
+    }
+
 }

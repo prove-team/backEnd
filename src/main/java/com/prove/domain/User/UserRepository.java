@@ -19,4 +19,5 @@ public interface UserRepository extends JpaRepository<UserEntity,Integer> {
 
     @Query("SELECT u FROM UserEntity u WHERE u.username LIKE CONCAT('%', :username, '%')")
     Page<UserEntity> findByUsernameWithPage(String username, Pageable pageable);
+
 }

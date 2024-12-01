@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-
-//TODO getAllFriends와 달리 username파라미터로 내 친구 목록 가져오는거 만들기 godong으로 친구목록가져와야함(getAllfriends는 토큰으로 가져오고있음)--검증
 @RestController
 @RequiredArgsConstructor
 public class UserController {
@@ -24,8 +22,7 @@ public class UserController {
     @PostMapping("/api/make/friend/{friendId}")
     public ResponseEntity<?> makeFriend(@PathVariable int friendId){
         String username = getUsername();
-        userService.addFriend(username, friendId);
-        return new ResponseEntity<>("hello_my_friend.", HttpStatus.OK);
+        return userService.addFriend(username, friendId);
     }
 
     @GetMapping("/api/get/friendId/{username}")
@@ -33,11 +30,10 @@ public class UserController {
         return userService.getFriendId(username);
     }
 
-    @PostMapping("/api/delete/friend/{friendId}")
+    @DeleteMapping("/api/friend/{friendId}")
     public ResponseEntity<?> deleteFriend(@PathVariable int friendId){
         String username = getUsername();
-        userService.deleteFriend(username,friendId);
-        return new ResponseEntity<>("delete friend: "+friendId,HttpStatus.OK);
+        return userService.deleteFriend(username,friendId);
     }
 
     @PostMapping("/api/tags/{user_tags}")
@@ -51,7 +47,7 @@ public class UserController {
         return userService.getMyTags();
     }
 
-    //TODO userDTO에 사진을 추가 -- 검증
+
     @GetMapping("/api/get/myfriends")
     public List<UserDto> getAllFriends(){
         return userService.getMyFriends();
@@ -87,13 +83,17 @@ public class UserController {
         return userService.deleteMainImage();
     }
 
-    //TODO 검증
-    //TODO Paging -- 검증
     //TODO 내가 -> junsu를 친구추가(jun까지 보냄), 내 친구가 A,B,C 3명이 있다. A에서 jun친구가 jungo B,C가 junsu??
     @GetMapping("/api/search/{username}")
-    public PagedDTO<List<UserDto>> searchWithUserName(@PathVariable String username,@PageableDefault(page = 0, size = 5) Pageable pageable){
+    public PagedDTO<List<UserDto>> searchWithUserName(@PathVariable String username, @PageableDefault(page = 0, size = 5) Pageable pageable){
         return userService.searchWithUserName(username,pageable);
     }
+
+    @GetMapping("/api/username")
+    public String getUsernameWithToken(){
+        return userService.getUseranmeWithToken();
+    }
+
     private static String getUsername() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return username;

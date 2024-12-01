@@ -1,6 +1,7 @@
 package com.prove.domain.Prove;
 
 import com.prove.domain.PagedDTO;
+import com.prove.domain.PagedDTOWithFriendCnt;
 import com.prove.domain.Prove.Dto.*;
 import com.prove.domain.image.ImageService;
 import jakarta.annotation.Nullable;
@@ -18,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.Optional;
 
-//TODO 친구username을 가지고, getAllMyProve에서 친구 username으로 가져오기 proveDto 가져오고, 친구 숫자만 따로 추가해서 가져오기-완료
 
 @RequiredArgsConstructor
 @RestController
@@ -69,7 +69,7 @@ public class ProveController {
     //메서드에서 자동적으로 삽입됨
     // 리스트 보내면 이미지 한번에 지우기
     @DeleteMapping("/api/image")
-    public ResponseEntity<?>  deleteImage(@RequestBody List<Long> imageIds){
+    public ResponseEntity<?> deleteImage(@RequestBody List<Long> imageIds){
         imageService.deleteImage(imageIds);
         return new ResponseEntity<>("image 삭제에 성공했습니다.",HttpStatus.OK);
     }
@@ -98,15 +98,23 @@ public class ProveController {
     }
 
     //Pageable쓴거
+    //로그인 한상태 -> /api/allProves/v3/NONE (user 정보의 Tag를 사용하고)
+    //로그인 안했는데 - 태그 선택 했을때 ->/api/allProves/v3/태그 넣어줘
+    //로그인 안했는데 - 태그 선택 안했을때 -> /api/allProves/v3/NONE (모든 Prove에서 현재 시간과 가까운 Prove를 가져오게함)
+   //이게 배포판
     @GetMapping("/api/allProves/v3/{tags}")
     public PagedDTO<List<ProveDtoV2>> getAllProvesv2withPageable(@PageableDefault(page = 0, size = 5) Pageable pageable , @PathVariable String tags){
         return proveService.getAllProveWithStringWithPagable(pageable,tags);
     }
 
-    //pageable? 쓰자
-    //TODO Pageing--완료
+    //이게 캐시 쓴거
+    @GetMapping("/api/allProves/v4/STUDY")
+    public List<ProveDtoV2>getProvesV4(){
+        return proveService.getProvesWithCache();
+    }
+
     @GetMapping("/api/myProves")
-    public PagedDTO<List<ProveDtoV2>> getAllMyProve(@PageableDefault(page = 0, size = 5) Pageable pageable){
+    public PagedDTOWithFriendCnt<List<ProveDtoV2>> getAllMyProve(@PageableDefault(page = 0, size = 5) Pageable pageable){
         return proveService.getAllMyProve(pageable);
     }
 
@@ -122,17 +130,15 @@ public class ProveController {
         return new ResponseEntity<>(liked, HttpStatus.OK);
     }
 
-    //알고리즘적인 측면 고려 -> 현재 날짜와 가까운 prove들만 가져옴
-    //TODO 준수한테 이거 쓰는지 물어보기
-    @GetMapping("/api/friend/prove")
-    public List<ProveDtoV2> getFriendProve(){
-        return proveService.getFriendProve();
-    }
-
-
     @GetMapping("/api/prove/{username}")
-    public ProveWithF_CNTDTO getPCNDTO(@PathVariable String username){
-        return proveService.getProveWithF_CNTDTO(username);
+    public PagedDTOWithFriendCnt<List<ProveDtoV2>> getPCNDTO(
+            @PageableDefault(page = 0, size = 5) Pageable pageable,
+            @PathVariable String username) {
+        return proveService.getProveWithF_CNTDTO(username, pageable);
     }
 
+    @GetMapping("/api/prove/friend")
+    public PagedDTO<List<ProveDtoV2>> getFriendDTO(@PageableDefault(page = 0, size = 5) Pageable pageable){
+        return proveService.getFriendProves(pageable);
+    }
 }

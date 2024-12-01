@@ -1,5 +1,10 @@
 package com.prove.domain.Prove.Dto;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.prove.domain.Like.Like;
 import com.prove.domain.Tags;
 import com.prove.domain.User.Dto.UserDto;
@@ -19,7 +24,7 @@ import java.util.List;
 public class ProveDtoV2 {
     private Long proveId;
 
-    private String openOrNot;
+    private Boolean openOrNot;
 
     private Long importance;
 
@@ -29,8 +34,12 @@ public class ProveDtoV2 {
 
     private Tags tags;
 
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime startTime;
 
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime endTime;
 
     private List<Image> imgList = new ArrayList<>();

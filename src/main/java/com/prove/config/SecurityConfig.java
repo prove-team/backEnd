@@ -57,26 +57,6 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 
-        //Cors 설정
-        http
-                .cors((corsCustomizer -> corsCustomizer.configurationSource(new CorsConfigurationSource() {
-
-                    @Override
-                    public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-
-                        CorsConfiguration configuration = new CorsConfiguration();
-
-                        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000"));
-                        configuration.setAllowedMethods(Collections.singletonList("*"));
-                        configuration.setAllowCredentials(true);
-                        configuration.setAllowedHeaders(Collections.singletonList("*"));
-                        configuration.setMaxAge(3600L);
-                        configuration.setExposedHeaders(Collections.singletonList("Access"));
-
-                        return configuration;
-                    }
-                })));
-
         //우리는 시큐리티를 통해서 회원정보 저장 조회 할때는 비밀번호를 항상 캐시로 암호화시켜서 검증해서 진행
 
         //csrf disable session에서는 session이 고정 csrf공격 방어 필수 jwt는 session이 stateless상태 방어 필요
@@ -98,7 +78,7 @@ public class SecurityConfig {
         //나머지 모든 요청들은 로그인을 해야만 접근 가능하게 authenticated설정을 해준다.
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/login", "/", "/join").permitAll()
+                        .requestMatchers("/login", "/", "/join/{tags}").permitAll()
                         .requestMatchers("reissue").permitAll()
                         .requestMatchers("/api/allProves").permitAll()
                         .requestMatchers("/api/allProves/v2/{tags}").permitAll()

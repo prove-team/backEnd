@@ -3,19 +3,16 @@ package com.prove.domain.User;
 import com.prove.domain.AwsS3.AwsS3Service;
 import com.prove.domain.PageMetaData;
 import com.prove.domain.PagedDTO;
-import com.prove.domain.Prove.Dto.ProveDtoV2;
 import com.prove.domain.Prove.Prove;
+import com.prove.domain.Prove.ProveRepository;
 import com.prove.domain.Tags;
 import com.prove.domain.User.Dto.ProveStatic;
 import com.prove.domain.User.Dto.UserDto;
 import com.prove.domain.image.ImageDto;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -24,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -35,36 +31,52 @@ import java.util.stream.Collectors;
 public class UserService {
     private final UserRepository userRepository;
     private final AwsS3Service awsS3Service;
-    public void addFriend(String userName, int friendId) {
+    private final ProveRepository proveRepository;
+    private final FriendShipRepository friendShipRepository;
+    public ResponseEntity<String> addFriend(String userName, int friendId) {
         UserEntity user = userRepository.findByUsername(userName);
         UserEntity friend = userRepository.findById(friendId).orElseThrow(()->new IllegalArgumentException("잘못된 friend ID"));
 
-        if (!user.getFriends().contains(friend)) {
-            user.getFriends().add(friend);
+        if(user.equals(friend)){
+            return new ResponseEntity<>("자기 자신을 친구로 추가할수는 없습니다.",HttpStatus.BAD_REQUEST);
         }
+        if (friendShipRepository.existsByUserAndFriend(user, friend)) {
+            return new ResponseEntity<>("이미 친구로 맺은 상대입니다.",HttpStatus.BAD_REQUEST);
 
-        if (!friend.getFriends().contains(user)) {
-            friend.getFriends().add(user);
         }
+        friendShipRepository.save(new FriendShip(user,friend));
+        return new ResponseEntity<>("친구추가가 완료 되었습니다.",HttpStatus.OK);
     }
 
-    public void deleteFriend(String username, int friendId) {
+    public ResponseEntity<?> deleteFriend(String username, int friendId) {
         UserEntity user = userRepository.findByUsername(username);
         UserEntity friend = userRepository.findById(friendId).orElseThrow(()->new IllegalArgumentException("잘못된 friend ID"));
 
-        user.getFriends().removeIf(f -> f.equals(friend));
+        if(!friendShipRepository.existsByUserAndFriend(user, friend)){
+            return new ResponseEntity<>("해당 유저는 친구가 아닙니다.",HttpStatus.BAD_REQUEST);
+        }
+        FriendShip friendship = friendShipRepository.findByUserAndFriend(user, friend);
+        friendShipRepository.delete(friendship);
+        return new ResponseEntity<>("친구삭제를 했습니다",HttpStatus.OK);
     }
 
     public List<UserDto> getMyFriends() {
+        List<UserDto> userDtos = new ArrayList<>();
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         UserEntity userEntity = userRepository.findByUsername(username);
-        List<UserEntity> friends = userEntity.getFriends();
-        List<UserDto> userDtos = new ArrayList<>();
-        for (UserEntity friend : friends) {
-            userDtos.add(UserDto.builder()
-                    .username(friend.getUsername())
-                    .userImg(friend.getMainImage())
-                    .build());
+        List<FriendShip> friendships = friendShipRepository.findByUserWithFriends(userEntity);
+        if(friendships!=null){
+            for (FriendShip friendship : friendships) {
+                UserEntity friend = friendship.getFriend();
+                UserDto userDto = UserDto.builder()
+                        .username(friend.getUsername())
+                        .role(friend.getRole())
+                        .lank(friend.getLank())
+                        .level(friend.getLevel())
+                        .userImg(friend.getMainImage())
+                        .build();
+                userDtos.add(userDto);
+            }
         }
         return userDtos;
     }
@@ -78,7 +90,8 @@ public class UserService {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         UserEntity userEntity = userRepository.findByUsername(username);
         ProveStatic proveStatic = new ProveStatic();
-        List<Prove> proves = userEntity.getProves();
+
+        List<Prove> proves = proveRepository.findProvesByUserId(userEntity.getId());
         int total = proves.size();
         int success = 0;
         int fail = 0;
@@ -98,7 +111,7 @@ public class UserService {
     public ConcurrentHashMap<Tags,Integer> getTagsStatic() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         UserEntity userEntity = userRepository.findByUsername(username);
-        List<Prove> proves = userEntity.getProves();
+        List<Prove> proves = proveRepository.findProvesByUserId(userEntity.getId());
         ConcurrentHashMap<Tags,Integer> Map = new ConcurrentHashMap<>();
         for (Prove prove : proves) {
             Tags tag = prove.getTags();
@@ -115,14 +128,12 @@ public class UserService {
         System.out.println(tags);
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         UserEntity userEntity = userRepository.findByUsername(username);
-        List<Tags> userEntityTags = userEntity.getTags();
+        userEntity.getTags().clear();
         List<Tags> userTags = Arrays.stream(tags.split("\\."))
                 .map(Tags::valueOf)
                 .collect(Collectors.toList());
-        for (Tags tag : userTags) {
-            if(!userEntityTags.contains(tag)) {
-                userEntity.getTags().add(tag);
-            }
+        for (Tags userTag : userTags) {
+            userEntity.getTags().add(userTag);
         }
     }
 
@@ -188,7 +199,11 @@ public class UserService {
 
     public List<UserDto> getMyFriendsWithUsername(String username) {
         UserEntity userEntity = userRepository.findByUsername(username);
-        List<UserEntity> friends = userEntity.getFriends();
+        List<FriendShip> friendShips = friendShipRepository.findByUserWithFriends(userEntity);
+        List<UserEntity>friends = new ArrayList<>();
+        for (FriendShip friendShip : friendShips) {
+            friends.add(friendShip.getFriend());
+        }
         List<UserDto> userDtos = new ArrayList<>();
         for (UserEntity friend : friends) {
             userDtos.add(UserDto.builder()
@@ -217,5 +232,9 @@ public class UserService {
                 .pageMetaData(pageMetaData)
                 .build();
 
+    }
+
+    public String getUseranmeWithToken() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }

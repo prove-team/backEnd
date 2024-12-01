@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface ImageRepository extends JpaRepository <Image,Long> {
     List<Image> findAllByProve(Prove prove);
+    Image findFirstByProve(Prove prove);
 }

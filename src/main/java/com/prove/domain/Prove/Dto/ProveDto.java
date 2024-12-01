@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ProveDto {
 
-    private String openOrNot;
+    private Boolean openOrNot;
 
     private Long importance;
 

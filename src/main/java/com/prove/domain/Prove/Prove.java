@@ -1,6 +1,10 @@
 package com.prove.domain.Prove;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.prove.domain.Like.Like;
 import com.prove.domain.Prove.Dto.ProveDto;
 import com.prove.domain.Tags;
@@ -15,8 +19,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO 메인페이지 쿠키안쓰고 string으로 하는거 구현-완료 실험 안함 -- 완료
-//TODO 다대일 단방향으로 바꾸기 -- 아직 못함
+
 //TODO comment like 했을때 이미 한애들 바꾸기  - 이미 좋아요 했는데 누르면, "User has already liked this comment" RuntimeException터짐
 //TODO PAGING처리
 
@@ -32,14 +35,20 @@ public class Prove {
     @Column
     private Long id;
 
+
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @Column(nullable = false)
     private LocalDateTime startTime;
 
+
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @Column(nullable = false)
     private LocalDateTime endTime;
 
     @Column(nullable = false)
-    private String openOrNot;
+    private Boolean openOrNot;
 
     @Column
     private Long importance;
@@ -54,26 +63,14 @@ public class Prove {
     @Enumerated(EnumType.STRING)
     private Tags tags;
 
-    @OneToMany(mappedBy = "prove", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Like> likes = new ArrayList<>();
-
-    @JsonManagedReference
-    @OneToMany(mappedBy = "prove", cascade = CascadeType.ALL)
-    private List<Image> imgList = new ArrayList<>();
-
-    @JsonManagedReference
     @ManyToOne(fetch = FetchType.LAZY)
     private UserEntity user;
-
-
-    @OneToMany(mappedBy = "prove",cascade = CascadeType.ALL)
-    private List<Comment> commentList = new ArrayList<>();
 
     @Column
     private String color;
 
     @Builder
-    public Prove(String openOrNot,String shortWord, Long importance, String tags, LocalDateTime startTime, LocalDateTime endTime,UserEntity user,String color) {
+    public Prove(Boolean openOrNot,String shortWord, Long importance, String tags, LocalDateTime startTime, LocalDateTime endTime,UserEntity user,String color) {
         this.user = user;
         this.openOrNot = openOrNot;
         this.importance = importance;
@@ -81,26 +78,16 @@ public class Prove {
         this.startTime = startTime;
         this.endTime = endTime;
         this.success="NotYet";
-        this.imgList = new ArrayList<>();
-        this.commentList = new ArrayList<>();
         this.shortWord = shortWord;
         this.color=color;
     }
 
-    void completeProve(List<Image> imgList, ProveDto proveDto) {
-        this.imgList = imgList;
-        for (Image image : imgList) {
-            image.setProve(this);
-        }
+    void completeProve(ProveDto proveDto) {
         this.shortWord = proveDto.getShortWord();
         this.success = "Success";
     }
 
-    public Long getLikeCount() {
-        return (long) likes.size();
-    }
-
-    public void editProve(ProveDto proveDto, List<Image> imageList) {
+    public void editProve(ProveDto proveDto) {
         if (proveDto.getStartTime() != null) {
             this.startTime=proveDto.getStartTime();
         }
@@ -129,21 +116,10 @@ public class Prove {
             this.importance=proveDto.getImportance();
         }
 
-        if (imageList != null && !imageList.isEmpty()) {
-            this.imgList = imageList;
-            for (Image image : imgList) {
-                image.setProve(this);
-            }
-        }
 
         if(proveDto.getColor() !=null){
             this.color= proveDto.getColor();
         }
-    }
-
-    public void addComment(Comment comm) {
-        commentList.add(comm);
-        comm.setProve(this);
     }
 
 }
